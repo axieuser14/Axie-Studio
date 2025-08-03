@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Bot, Sparkles, Zap, MessageCircle, Clock, Brain, Shield, BarChart3, Users, Headphones, Globe, Star } from 'lucide-react';
+import { Bot, Sparkles, Zap, MessageCircle, Clock, Brain, Shield, BarChart3, Users, Headphones, Globe, Star, Volume2, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const AIAgentPage = () => {
@@ -10,6 +10,7 @@ const AIAgentPage = () => {
     triggerOnce: true,
     threshold: 0.1
   });
+  const [isShowcaseOpen, setIsShowcaseOpen] = useState(false);
 
   const features = [
     {
@@ -32,8 +33,8 @@ const AIAgentPage = () => {
     },
     {
       icon: MessageCircle,
-      title: "Naturliga Samtal",
-      description: "Förstår kontext och kan hålla naturliga, flytande konversationer med dina kunder.",
+      title: "Chat & Röst",
+      description: "Kommunicerar både via text och röst för en naturlig kundupplevelse.",
       color: "from-pink-500 to-pink-600"
     },
     {
@@ -52,22 +53,22 @@ const AIAgentPage = () => {
 
   const useCases = [
     {
-      title: "Kundservice",
-      description: "Hantera vanliga frågor, supportärenden och produktinformation automatiskt.",
-      icon: Headphones,
+      title: "Chatbot för Kundservice",
+      description: "Hantera vanliga frågor, supportärenden och produktinformation automatiskt via text.",
+      icon: MessageCircle,
       examples: ["Öppettider och kontaktinfo", "Produktspecifikationer", "Returpolicy", "Teknisk support"]
+    },
+    {
+      title: "Röst AI-Agent",
+      description: "Naturliga röstkonversationer som känns som att prata med en riktig person.",
+      icon: Volume2,
+      examples: ["Telefonbeställningar", "Röstbaserad support", "Interaktiva samtal", "Flerspråkig röstassistent"]
     },
     {
       title: "Försäljningsstöd",
       description: "Kvalificera leads, boka möten och guida kunder genom köpprocessen.",
       icon: Users,
       examples: ["Lead-kvalificering", "Produktrekommendationer", "Prisförfrågningar", "Mötesbokning"]
-    },
-    {
-      title: "Bokningsassistent",
-      description: "Hantera bokningar, avbokningar och omschemaläggningar automatiskt.",
-      icon: Bot,
-      examples: ["Tidsbokning", "Avbokningar", "Påminnelser", "Kalendersynk"]
     },
     {
       title: "Flerspråkig Support",
@@ -147,7 +148,7 @@ const AIAgentPage = () => {
               transition={{ delay: 0.6, duration: 0.8 }}
             >
               Revolutionera din kundservice med en AI-agent som förstår ditt företag, 
-              svarar på frågor och hjälper dina kunder 24/7 - precis som en mänsklig medarbetare.
+              svarar på frågor och hjälper dina kunder 24/7 - både via text och röst.
             </motion.p>
 
             <motion.div 
@@ -161,20 +162,20 @@ const AIAgentPage = () => {
                 className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
               >
                 <MessageCircle className="mr-3" size={24} />
-                Testa AI-Agenten Nu
+                Kom igång med AI-Agent
               </button>
               
               <button 
-                onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => setIsShowcaseOpen(true)}
                 className="bg-white/90 backdrop-blur-sm border-2 border-blue-600/50 text-blue-600 px-10 py-5 rounded-2xl font-bold text-lg hover:bg-blue-600 hover:text-white transition-all duration-300 transform hover:scale-105 flex items-center justify-center shadow-lg"
               >
-                <Brain className="mr-3" size={24} />
-                Lär Dig Mer
+                <ExternalLink className="mr-3" size={24} />
+                Se Demo
               </button>
             </motion.div>
           </motion.div>
 
-          {/* Embedded AI Agent Preview */}
+          {/* Embedded AI Agent */}
           <motion.div 
             className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200 max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
@@ -203,23 +204,16 @@ const AIAgentPage = () => {
               </div>
             </div>
 
-            {/* Preview Content */}
-            <div className="relative h-96 bg-gradient-to-br from-gray-50 to-blue-50/30 flex items-center justify-center">
-              <div className="text-center p-8">
-                <div className="bg-white rounded-2xl p-8 shadow-lg max-w-md mx-auto">
-                  <Bot className="mx-auto mb-4 text-blue-600" size={48} />
-                  <h4 className="text-xl font-bold text-gray-900 mb-3">Hej! Jag är din AI-assistent</h4>
-                  <p className="text-gray-600 mb-6">
-                    Jag kan hjälpa dig med frågor om våra tjänster, boka tider, 
-                    och mycket mer. Vad kan jag hjälpa dig med idag?
-                  </p>
-                  <div className="flex flex-wrap gap-2 justify-center">
-                    <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm">Boka tid</span>
-                    <span className="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm">Priser</span>
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">Support</span>
-                  </div>
-                </div>
-              </div>
+            {/* Embedded AI Agent */}
+            <div className="relative h-96 md:h-[600px]">
+              <iframe
+                src="https://axieagent.netlify.app/"
+                className="w-full h-full border-0"
+                title="Axie AI Agent"
+                allow="microphone; camera; geolocation"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
+                loading="lazy"
+              />
             </div>
           </motion.div>
         </div>
@@ -262,10 +256,10 @@ const AIAgentPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
-              Användningsområden
+              Chatbot eller Röst AI-Agent
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Vår AI-agent kan anpassas för olika branscher och användningsområden.
+              Välj mellan textbaserad chatbot eller röstbaserad AI-agent - eller kombinera båda för maximal flexibilitet.
             </p>
           </div>
 
@@ -359,16 +353,60 @@ const AIAgentPage = () => {
               </button>
               
               <button 
-                onClick={() => window.open('https://axiestudiochatbot.netlify.app', '_blank')}
+                onClick={() => setIsShowcaseOpen(true)}
                 className="border-2 border-white text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-white hover:text-blue-600 transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
               >
                 <MessageCircle className="mr-3" size={24} />
-                Testa Live Demo
+                Se Showcase Demo
               </button>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Showcase Modal */}
+      {isShowcaseOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div
+            className="bg-white rounded-3xl shadow-2xl overflow-hidden w-full max-w-4xl h-[90vh] relative"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          >
+            {/* Header */}
+            <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white p-6 flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="bg-white/20 p-3 rounded-xl">
+                  <Bot size={28} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold">AI Chatbot Showcase</h3>
+                  <p className="text-sm opacity-90">Se hur din chatbot kan hjälpa ditt företag</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsShowcaseOpen(false)}
+                className="bg-white/20 hover:bg-white/30 p-2 rounded-xl transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            {/* Embedded Showcase */}
+            <div className="h-full">
+              <iframe
+                src="https://chatbotex1.netlify.app/"
+                className="w-full h-full border-0"
+                title="AI Chatbot Showcase"
+                allow="microphone; camera"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+              />
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };

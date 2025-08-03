@@ -121,88 +121,17 @@ const Header = () => {
               {/* Pricing Dropdown */}
               <div className="relative pricing-dropdown">
                 <motion.button
-                  onClick={() => setIsPricingDropdownOpen(!isPricingDropdownOpen)}
+                  onClick={() => {
+                    setIsPricingDropdownOpen(false);
+                    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
                   className={`group relative px-6 py-3 text-gray-700 hover:text-blue-600 transition-all duration-300 rounded-xl hover:bg-blue-50 text-base font-semibold overflow-hidden flex items-center ${
                     isPricingDropdownOpen ? 'text-blue-600 bg-blue-50' : ''
                   }`}
                   whileHover={{ scale: 1.05, y: -2 }}
                 >
                   <span className="relative mr-2">Priser</span>
-                  <ChevronDown 
-                    size={16} 
-                    className={`relative transition-transform duration-300 ${
-                      isPricingDropdownOpen ? 'rotate-180' : ''
-                    }`} 
-                  />
                 </motion.button>
-
-                {/* Pricing Dropdown Menu */}
-                <AnimatePresence>
-                  {isPricingDropdownOpen && (
-                    <motion.div
-                      className="absolute top-full left-0 mt-2 w-96 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-200/50 z-50 overflow-hidden"
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {/* Header */}
-                      <div className="p-6 border-b border-gray-100 bg-gray-50/50">
-                        <h3 className="text-lg font-bold text-gray-900 mb-1">Våra Paket</h3>
-                        <p className="text-sm text-gray-600">Välj den perfekta lösningen för ditt företag</p>
-                      </div>
-                      
-                      {/* Pricing Options */}
-                      <div className="p-4">
-                        <div className="space-y-2">
-                          {pricingOptions.map((option, index) => (
-                            <motion.a
-                              key={index}
-                              href={getFullPath(option.href)}
-                              className="group flex items-center justify-between p-4 rounded-xl hover:bg-blue-50 transition-all duration-300 border border-transparent hover:border-blue-100"
-                              whileHover={{ scale: 1.02, x: 4 }}
-                              onClick={() => setIsPricingDropdownOpen(false)}
-                            >
-                              <div className="flex-1">
-                                <div className="flex items-center mb-1">
-                                  <h4 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
-                                    {option.name}
-                                  </h4>
-                                  {option.popular && (
-                                    <span className="ml-2 bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full font-medium">
-                                      Populär
-                                    </span>
-                                  )}
-                                </div>
-                                <p className="text-xs text-gray-600 mb-2">{option.description}</p>
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-sm font-bold text-gray-900">{option.price}</span>
-                                  <span className="text-xs text-gray-500">+</span>
-                                  <span className="text-xs text-gray-600">{option.monthly}</span>
-                                </div>
-                              </div>
-                            </motion.a>
-                          ))}
-                        </div>
-                        
-                        {/* Footer CTA */}
-                        <div className="mt-4 pt-4 border-t border-gray-100">
-                          <motion.button
-                            onClick={() => {
-                              setIsBookingModalOpen(true);
-                              setIsPricingDropdownOpen(false);
-                            }}
-                            className="w-full bg-blue-600 text-white px-4 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors text-sm"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            Boka kostnadsfri konsultation
-                          </motion.button>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
 
               {/* Contact */}
