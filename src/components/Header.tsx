@@ -36,21 +36,21 @@ const Header = () => {
 
   const pricingOptions = [
     {
-      name: "Webbplats",
+      name: "Webbplats", 
       price: "8,995 kr",
       monthly: "495 kr/mån",
       description: "Professionell webbplats med SEO och support",
       href: "#websites"
     },
     {
-      name: "E-handel",
+      name: "E-handel", 
       price: "10,995 kr", 
       monthly: "895 kr/mån",
       description: "Komplett webshop med betalningar",
       href: "#commerce"
     },
     {
-      name: "Bokningssystem",
+      name: "Bokningssystem", 
       price: "10,995 kr",
       monthly: "995 kr/mån", 
       description: "Avancerat bokningssystem med CRM",
@@ -58,7 +58,7 @@ const Header = () => {
       popular: true
     },
     {
-      name: "Komplett",
+      name: "Komplett", 
       price: "14,995 kr",
       monthly: "1,495 kr/mån",
       description: "Allt-i-ett med mobilapp",
@@ -121,17 +121,78 @@ const Header = () => {
               {/* Pricing Dropdown */}
               <div className="relative pricing-dropdown">
                 <motion.button
-                  onClick={() => {
-                    setIsPricingDropdownOpen(false);
-                    document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
-                  }}
+                  onClick={() => setIsPricingDropdownOpen(!isPricingDropdownOpen)}
                   className={`group relative px-6 py-3 text-gray-700 hover:text-blue-600 transition-all duration-300 rounded-xl hover:bg-blue-50 text-base font-semibold overflow-hidden flex items-center ${
                     isPricingDropdownOpen ? 'text-blue-600 bg-blue-50' : ''
                   }`}
                   whileHover={{ scale: 1.05, y: -2 }}
                 >
                   <span className="relative mr-2">Priser</span>
+                  <ChevronDown size={16} className={`transition-transform duration-300 ${isPricingDropdownOpen ? 'rotate-180' : ''}`} />
                 </motion.button>
+                
+                {/* Pricing Dropdown Menu */}
+                <AnimatePresence>
+                  {isPricingDropdownOpen && (
+                    <motion.div
+                      className="absolute top-full left-0 mt-2 w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden"
+                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {/* Header */}
+                      <div className="p-4 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-purple-50">
+                        <h3 className="font-bold text-gray-900 text-lg">Våra Priser</h3>
+                        <p className="text-sm text-gray-600">Välj den lösning som passar dig bäst</p>
+                      </div>
+                      
+                      {/* Pricing Options */}
+                      <div className="max-h-96 overflow-y-auto">
+                        {pricingOptions.map((option, index) => (
+                          <motion.a
+                            key={index}
+                            href={getFullPath(option.href)}
+                            onClick={() => setIsPricingDropdownOpen(false)}
+                            className={`block p-4 hover:bg-blue-50 transition-colors border-b border-gray-50 last:border-b-0 ${
+                              option.popular ? 'bg-blue-50/50 border-l-4 border-l-blue-500' : ''
+                            }`}
+                            whileHover={{ x: 4 }}
+                          >
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center">
+                                <h4 className="font-semibold text-gray-900">{option.name}</h4>
+                                {option.popular && (
+                                  <span className="ml-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full">
+                                    Populär
+                                  </span>
+                                )}
+                              </div>
+                              <div className="text-right">
+                                <div className="text-lg font-bold text-blue-600">{option.price}</div>
+                                <div className="text-xs text-gray-500">{option.monthly}</div>
+                              </div>
+                            </div>
+                            <p className="text-sm text-gray-600">{option.description}</p>
+                              <span className="text-xs text-blue-500 font-medium">⭐ Populär</span>
+                        ))}
+                      </div>
+                      
+                      {/* Footer */}
+                      <div className="p-4 bg-gray-50 border-t border-gray-100">
+                        <button
+                          onClick={() => {
+                            setIsPricingDropdownOpen(false);
+                            document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                          }}
+                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 px-4 rounded-xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all text-sm"
+                        >
+                          Kostnadsfri konsultation →
+                        </button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               {/* Contact */}
@@ -218,7 +279,7 @@ const Header = () => {
                   {/* Pricing Section in Mobile */}
                   <div className="mb-4">
                     <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3 px-4">
-                      Priser
+                      Våra Priser
                     </h3>
                     {pricingOptions.map((option, index) => (
                       <motion.a

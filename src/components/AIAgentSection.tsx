@@ -1,11 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Bot, Sparkles, Zap } from 'lucide-react';
+import { Bot, Sparkles, Zap, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { Link } from 'react-router-dom';
 
 const AIAgentSection = () => {
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1
@@ -43,71 +44,46 @@ const AIAgentSection = () => {
           </h2>
           
           <motion.p 
-            className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed"
+            className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed mb-8"
             initial={{ opacity: 0 }}
             animate={inView ? { opacity: 1 } : {}}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
             {t('aiAgent.subtitle')}
           </motion.p>
-        </motion.div>
 
-        {/* Embedded AI Agent */}
-        <motion.div 
-          className="relative bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200"
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.4, duration: 0.8 }}
-        >
-          {/* Header */}
-          <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 sm:p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="bg-white/20 p-2 rounded-lg">
-                  <Bot size={24} className="text-white" />
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-bold">{t('aiAgent.badge')}</h3>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                    <span className="text-sm opacity-90">{t('aiAgent.status.online')}</span>
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Zap className="text-yellow-300" size={20} />
-                <span className="text-sm font-medium">{t('aiAgent.status.poweredBy')}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Embedded Content */}
-          <div className="relative" style={{ height: '800px' }}>
-            <iframe
-              src="https://axieagent.netlify.app/"
-              className="w-full h-full border-0"
-              title="Axie AI Agent"
-              allow="microphone; camera; geolocation"
-              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-presentation"
-              loading="lazy"
-            />
+          {/* CTA to AI Agent Page */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.8, duration: 0.8 }}
+          >
+            <Link
+              to={`/${currentLanguage.code}/ai-agent`}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-8 py-4 rounded-2xl font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+            >
+              <Bot className="mr-3" size={24} />
+              Utforska AI Agent
+              <ExternalLink className="ml-3" size={20} />
+            </Link>
             
-            {/* Loading overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center pointer-events-none opacity-0 transition-opacity duration-500" id="ai-agent-loading">
-              <div className="text-center">
-                <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mb-4"></div>
-                <p className="text-gray-600 font-medium">{t('aiAgent.status.loading')}</p>
-              </div>
-            </div>
-          </div>
+            <button 
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-white/90 backdrop-blur-sm border-2 border-purple-600/50 text-purple-600 px-8 py-4 rounded-2xl font-bold text-lg hover:bg-purple-600 hover:text-white transition-all duration-300 transform hover:scale-105 flex items-center justify-center shadow-lg"
+            >
+              <Sparkles className="mr-3" size={20} />
+              Kom igång idag
+            </button>
+          </motion.div>
         </motion.div>
 
-        {/* Features */}
+        {/* Features Preview */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mt-12"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.8, duration: 0.8 }}
+          transition={{ delay: 1, duration: 0.8 }}
         >
           <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50">
             <div className="bg-gradient-to-br from-purple-500 to-purple-600 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4">
