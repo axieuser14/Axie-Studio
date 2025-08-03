@@ -454,7 +454,8 @@ export const en = {
         { name: "Booking System", href: "#booking" },
         { name: "Websites", href: "#websites" },
         { name: "Mobile Apps", href: "#apps" },
-        { name: "E-commerce", href: "#commerce" }
+        { name: "E-commerce", href: "#commerce" },
+        { name: "AI Agent", href: "/ai-agent" }
       ]
     },
     contact: {

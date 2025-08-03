@@ -454,7 +454,8 @@ export const sv = {
         { name: "Bokningssystem", href: "#booking" },
         { name: "Webbplatser", href: "#websites" },
         { name: "Mobilappar", href: "#apps" },
-        { name: "E-handel", href: "#commerce" }
+        { name: "E-handel", href: "#commerce" },
+        { name: "AI Agent", href: "/ai-agent" }
       ]
     },
     contact: {

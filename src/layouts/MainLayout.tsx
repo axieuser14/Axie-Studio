@@ -16,6 +16,7 @@ import AIFloatingButton from '../components/AIFloatingButton';
 import BottomNavigation from '../components/BottomNavigation';
 import PrivacyPolicy from '../components/PrivacyPolicy';
 import TermsOfService from '../components/TermsOfService';
+import AIAgentPage from '../components/AIAgentPage';
 
 const MainLayout: React.FC = () => {
   const { currentLanguage } = useLanguage();
@@ -48,6 +49,7 @@ const MainLayout: React.FC = () => {
         <Route path="services" element={<ServicesPage />} />
         <Route path="faq" element={<FAQPage />} />
         <Route path="contact" element={<ContactPage />} />
+        <Route path="ai-agent" element={<AIAgentPageComponent />} />
         <Route path="privacy" element={<PrivacyPolicyPage />} />
         <Route path="terms" element={<TermsOfServicePage />} />
         <Route path="*" element={<HomePage />} />
@@ -83,5 +85,6 @@ const FAQPage = () => <FAQ />;
 const ContactPage = () => <Contact />;
 const PrivacyPolicyPage = () => <PrivacyPolicy />;
 const TermsOfServicePage = () => <TermsOfService />;
+const AIAgentPageComponent = () => <AIAgentPage />;
 
 export default MainLayout;

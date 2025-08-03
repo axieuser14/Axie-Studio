@@ -109,6 +109,15 @@ const Header = () => {
             
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-1">
+              {/* AI Agent Link */}
+              <motion.a
+                href={getFullPath("/ai-agent")}
+                className="group relative px-6 py-3 text-gray-700 hover:text-blue-600 transition-all duration-300 rounded-xl hover:bg-blue-50 text-base font-semibold overflow-hidden"
+                whileHover={{ scale: 1.05, y: -2 }}
+              >
+                <span className="relative">AI Agent</span>
+              </motion.a>
+              
               {/* Pricing Dropdown */}
               <div className="relative pricing-dropdown">
                 <motion.button
@@ -310,6 +319,15 @@ const Header = () => {
                   </div>
 
                   {/* Contact */}
+                  <motion.a
+                    href={getFullPath("/ai-agent")}
+                    className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 rounded-xl font-semibold touch-manipulation min-h-[48px]"
+                    onClick={() => setIsMenuOpen(false)}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    AI Agent
+                  </motion.a>
+                  
                   <motion.a
                     href={getFullPath("#contact")}
                     className="flex items-center px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-all duration-300 rounded-xl font-semibold touch-manipulation min-h-[48px]"
